@@ -4,6 +4,7 @@ function appendCard () {
 
     let teamCard = document.createElement("div");
     teamCard.setAttribute("class", "teamCards");
+    tempCard.setAttribute("id", `${data.role}`); //Setting id by role for now
     placeCard.append(teamCard);
 
     let header  = document.createElement("div");
@@ -12,12 +13,12 @@ function appendCard () {
 
     let name = document.createElement("div");
     name.setAttribute("class", "memberName");
-    name.textContent= "Member Name";
+    name.textContent= '"Member Name"'; //`${data.name}`
     header.append(name);
 
     let role = document.createElement("div");
     role.setAttribute("class", "memberRole");
-    role.textContent="Role";
+    role.textContent="Role"; //`${data.role}`
     header.append(role);
 
     let cardContent = document.createElement("div");
@@ -34,15 +35,15 @@ function appendCard () {
     
     let cardContentP1 = document.createElement("p");
     cardContentP1.setAttribute("class", "memberID");
-    cardContentP1.textContent = "ID: Number";
+    cardContentP1.textContent = "ID: Number"; //`${data.id}`
 
     let cardContentP2 = document.createElement("p");
     cardContentP2.setAttribute("class", "memberEmail");
-    cardContentP2.textContent= "Email";
+    cardContentP2.textContent= "Email"; //`${data.email}`
 
     let cardContentP3 = document.createElement("p");
     cardContentP3.setAttribute("class", "memberDetail");
-    cardContentP3.textContent = "Other details";
+    cardContentP3.textContent = "Other details"; //`${data.office}` `${data.github}` `${data.school}`
 
     cardContentDivs1.append(cardContentP1);
     cardContentDivs2.append(cardContentP2);
@@ -51,14 +52,14 @@ function appendCard () {
     console.log("card should appear")
 }
 
-button = document.querySelector("button");
+// button = document.querySelector("button");
 
-button.addEventListener("click", function(event) {
-    event.preventDefault();
-    console.log("going to appendCard function")
+// button.addEventListener("click", function(event) {
+//     event.preventDefault();
+//     console.log("going to appendCard function")
 
-    appendCard();
-})
+//     appendCard();
+// })
 
 //FUNCTION TO SAVE TO LOCAL STORAGE ---------------
 //Need to create object out of this first, 
@@ -68,3 +69,5 @@ button.addEventListener("click", function(event) {
 
 //Then, this object needs to be sent to array, then set item
 //Whenever the window reloads, this needs to be retrieved from local storage
+
+module.exports = appendCard;

@@ -1,0 +1,53 @@
+* {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1 {
+    background-color: rgb(204, 22, 59);
+    color: white;
+    padding: 4rem;
+    text-align: center;
+    margin-top: 0px;
+}
+
+.appendCards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.teamCards {
+    border: 1px black solid;
+    border-radius: 4px;
+    width: 300px;
+    margin-top: 40px;
+    margin-right: 20px;
+    box-shadow: 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.cardHeader {
+    background-color: rgb(59, 59, 187);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    line-height: 2;
+    font-size: 1.5rem;
+}
+
+.cardContent {
+   padding: 25px;
+   line-height: 1;
+   background-color: rgb(240, 229, 229);
+}
+
+.cardContent div {
+    border: 1px grey solid;
+    border-radius: 2px;
+    margin: 4px;
+    background-color: white;
+}
+
+.cardContent p {
+    margin-left: 6px;
+}
