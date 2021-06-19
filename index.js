@@ -75,12 +75,7 @@ writeHTML();
 //THESE NEED TO BE SENT TO DIFFERENT MODULE----------------------------
 
 // FUNCTION TO CREATE CARD
-
-// function appendCard () {
-//     let placeCard = document.querySelector(".appendCards");
-//     let divs = document.createElemment("div");
-    
-// }
+// located in append.js
 
 
 
