@@ -1,7 +1,6 @@
 //Packages and modules for application
 const inquirer = require("inquirer"); 
 const fs = require("fs");
-// const appendCard = require("./dist/append.js");
 
 //QUESTIONS FOR INQUIRER
 const main = [
@@ -81,21 +80,22 @@ function writeHTML () {
         if(member.role == "Manager") {
             // console.log("manager was chosen");
             inquirer.prompt(managerQ).then(function(role){
-                console.log("Team member: ", member); //success
+                let thirdTag = "Office "
+
                 if(role.continue == true && ".dist/index.html" != null) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
                         console.log("adding more members");
                     });
                     writeHTML();
 
                 } else if (role.continue == true){
-                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
 
                     writeHTML();
                 } else {
-                    fs.appendFile("./dist/index.html", generateLastHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role, thirdTag), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
                 };
@@ -103,20 +103,22 @@ function writeHTML () {
         } else if (member.role == "Engineer") {
             // console.log("engineer was chosen");
             inquirer.prompt(engineerQ).then(function(role) {
+                let thirdTag = "GitHub "
+
                 if(role.continue == true && ".dist/index.html" != null) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
                         console.log("adding more members");
                     });
                     writeHTML();
 
                 } else if (role.continue == true){
-                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
 
                     writeHTML();
                 } else {
-                    fs.appendFile("./dist/index.html", generateLastHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role, thirdTag), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
                 };
@@ -124,20 +126,22 @@ function writeHTML () {
         } else {
             // console.log("intern was chosen")
             inquirer.prompt(internQ).then(function(role) {
+                let thirdTag = "School: "
+
                 if(role.continue == true && ".dist/index.html" != null) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
                         console.log("adding more members");
                     })
                     writeHTML();
 
                 } else if (role.continue == true){
-                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
                         console.log("HTML file has been successfully created!");
                     })
 
                     writeHTML();
                 } else {
-                    fs.appendFile("./dist/index.html", generateLastHTML(member, role), function(err) {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role, thirdTag), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
                 };
@@ -152,7 +156,7 @@ function init () {
 init();
 
 
-function generateFirstHTML(member, role) {
+function generateFirstHTML(member, role, tag) {
 var card = `<div class = "teamCards">
             <div class= "cardHeader">
                 <div class = "memberName">
@@ -170,22 +174,21 @@ var card = `<div class = "teamCards">
                     <p class= "memberEmail"> Email: ${member.email}</p>
                 </div>
                 <div>
-                    <p class= "memberDetail"> Info: ${role.third}</p>
+                    <p class= "memberDetail"> ${tag}: ${role.third}</p>
                 </div>
             </div>
         </div>`
 
 return card;
-}
+};
 
 
 //FUNCTION TO GENERATE HTML
-function generateLastHTML(member, role) {
+function generateLastHTML(member, role, tag) {
     var str_end = `</div>
 </body>
 </html>
 `
-
 var card = `<div class = "teamCards">
             <div class= "cardHeader">
                 <div class = "memberName">
@@ -203,10 +206,10 @@ var card = `<div class = "teamCards">
                     <p class= "memberEmail"> Email: ${member.email}</p>
                 </div>
                 <div>
-                    <p class= "memberDetail"> Info: ${role.third}</p>
+                    <p class= "memberDetail">${tag} ${role.third}</p>
                 </div>
             </div>
         </div>`
 
 return card + str_end;
-}
+};
