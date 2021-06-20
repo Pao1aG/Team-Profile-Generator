@@ -4,7 +4,7 @@ function appendCard () {
 
     let teamCard = document.createElement("div");
     teamCard.setAttribute("class", "teamCards");
-    tempCard.setAttribute("id", `${data.role}`); //Setting id by role for now
+    teamCard.setAttribute("id", "role"); //Setting id by role for now
     placeCard.append(teamCard);
 
     let header  = document.createElement("div");
@@ -52,19 +52,19 @@ function appendCard () {
     console.log("card should appear")
 }
 
-//TEST FOR HARDCODED HTML FILE
-// button = document.querySelector("button");
+// TEST FOR HARDCODED HTML FILE
+button = document.querySelector("button");
 
-// button.addEventListener("click", function(event) {
-//     event.preventDefault();
-//     console.log("going to appendCard function")
+button.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log("going to appendCard function")
 
-//     appendCard();
-// })
+    appendCard();
+})
 
 //FUNCTION TO SAVE TO LOCAL STORAGE ---------------
 //Need to create object out of this first, 
 //Then, this object needs to be sent to array, then set item
 //Whenever the window reloads, this needs to be retrieved from local storage
 
-module.exports = appendCard;
+

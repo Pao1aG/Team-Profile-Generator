@@ -1,10 +1,10 @@
 //Packages and modules for application
 const inquirer = require("inquirer"); 
 const fs = require("fs");
-const appendCard = require("./dist/append.js");
+// const appendCard = require("./dist/append.js");
 
 //QUESTIONS FOR INQUIRER
-const questions = [
+const main = [
     {
         type: "input",
         message: "Team Member Name:",
@@ -29,53 +29,122 @@ const questions = [
         message: "Email Address:",
         name: "email",
     },
-    //Needs to loop after this response
-    {
-        type: "list",
-        message: "Would you like to add another team member?",
-        name: "continue",
-        choices: ["yes", "no"],
-    },
+]
 
+const managerQ = [
     //For Manager only
     {
         type: "input",
         message: "Office Number:",
-        name: "office",
+        name: "third",
     },
+     {
+        type: "confirm",
+        message: "Would you like to add another team member?",
+        name: "continue",
+    },
+]
+
+const engineerQ = [
     //For Engineer only
     {
         type: "input",
         message: "GitHub Username:",
-        name: "github",
+        name: "third",
     },
+     {
+        type: "confirm",
+        message: "Would you like to add another team member?",
+        name: "continue",
+    },
+]
+
+const internQ = [
     //For Intern only
     {
         type: "input",
         message: "School:",
-        name: "school",
+        name: "third",
+    },
+     {
+        type: "confirm",
+        message: "Would you like to add another team member?",
+        name: "continue",
     },
 ]
 
 // FUNCTION FOR INQUIRER
 function writeHTML () {
     inquirer
-    .prompt(questions) 
+    .prompt(main) 
     .then(function(member) {
-        console.log("Team member: ", member); //success
-        fs.writeFile("./dist/index.html", generateHTML(member), function(err) {
-            console.log("HTML file has been successfully created!");
+        if(member.role == "Manager") {
+            // console.log("manager was chosen");
+            inquirer.prompt(managerQ).then(function(role){
+                console.log("Team member: ", member); //success
+                if(role.continue == true && ".dist/index.html" != null) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                        console.log("adding more members");
+                    });
+                    writeHTML();
 
-            appendCard(member); //Function to generate HTML elements for card
-        })
+                } else if (role.continue == true){
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    });
 
-        // generateHTML(member);
+                    writeHTML();
+                } else {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    });
+                };
+            });
+        } else if (member.role == "Engineer") {
+            // console.log("engineer was chosen");
+            inquirer.prompt(engineerQ).then(function(role) {
+                if(role.continue == true && ".dist/index.html" != null) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                        console.log("adding more members");
+                    });
+                    writeHTML();
 
-        // cardManager(member); //these are here for testing
-        // cardEngineer(member); //these are here for testing
-        // cardIntern(member); //these are here for testing
-    })
-}
+                } else if (role.continue == true){
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    });
+
+                    writeHTML();
+                } else {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    });
+                };
+            });
+        } else {
+            // console.log("intern was chosen")
+            inquirer.prompt(internQ).then(function(role) {
+                if(role.continue == true && ".dist/index.html" != null) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                        console.log("adding more members");
+                    })
+                    writeHTML();
+
+                } else if (role.continue == true){
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    })
+
+                    writeHTML();
+                } else {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    });
+                };
+            });
+        };
+    });
+};
 
 function init () {
     writeHTML(inquirer);
@@ -83,89 +152,61 @@ function init () {
 init();
 
 
-//THESE NEED TO BE SENT TO DIFFERENT MODULE----------------------------
-
-// FUNCTION TO CREATE CARD
-// located in append.js
-
-
-//FUNCTION TO EDIT CARD FOR MANAGER
-function cardManager (data) {
-    if(data.role == "Manager") {
-        console.log("Manager was chosen");
-        document.querySelector(".memberName").textContent = `${data.name}`;
-        document.querySelector(".memberRole").textContent="Manager";
-        document.querySelector(".memberDetail").textContent = `Office Number: ${data.office}`;
-    } else {
-        return;
-    }
-}
-
-//FUNCTION TO EDIT CARD FOR ENGINEER
-function cardEngineer(data) {
-    if(data.role == "Engineer") {
-        console.log("Engineer was chosen");
-        document.querySelector(".memberName").textContent = `${data.name}`;
-        document.querySelector(".memberRole").textContent="Engineer";
-        document.querySelector(".memberDetail").textContent = `GitHub: ${data.github}`;
-    } else {
-        return;
-    }
-}
-
-//FUNCTION TO EDIT CARD FOR INTERN
-function cardIntern(data) {
-    if(data.role == "Intern") {
-        console.log("Intern was chosen");
-        document.querySelector(".memberName").textContent = `${data.name}`;
-        document.querySelector(".memberRole").textContent="Intern";
-        document.querySelector(".memberDetail").textContent= `School: ${data.school}`;
-
-    } else {
-        return;
-    }
-}
-
-//FUNCTION TO GENERATE HTML
-function generateHTML(data) {
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/dist/style.css">
-    <title>My Team</title>
-</head>
-<body>
-    <h1> My Team</h1>
-
-    <button type = "button">Test Button</button>
-    <div class = "appendCards">
-        <!--These cards need to be appended-->
-        <div class = "teamCards">
+function generateFirstHTML(member, role) {
+var card = `<div class = "teamCards">
             <div class= "cardHeader">
                 <div class = "memberName">
-                    Member Name
+                    ${member.name}
                 </div>
                 <div class = "memberRole">
-                    Role
+                    ${member.role}
                 </div>
             </div>
             <div class = "cardContent">
                 <div>
-                    <p class= "memberID"> ID: Number </p>
+                    <p class= "memberID"> ID: ${member.id} </p>
                 </div>
                 <div> 
-                    <p class= "memberEmail">Email: email@email.com</p>
+                    <p class= "memberEmail"> Email: ${member.email}</p>
                 </div>
                 <div>
-                    <p class= "memberDetail"> Office, GitHub, School</p>
+                    <p class= "memberDetail"> Info: ${role.third}</p>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>`
+
+return card;
+}
+
+
+//FUNCTION TO GENERATE HTML
+function generateLastHTML(member, role) {
+    var str_end = `</div>
 </body>
 </html>
-    `
+`
+
+var card = `<div class = "teamCards">
+            <div class= "cardHeader">
+                <div class = "memberName">
+                    ${member.name}
+                </div>
+                <div class = "memberRole">
+                    ${member.role}
+                </div>
+            </div>
+            <div class = "cardContent">
+                <div>
+                    <p class= "memberID"> ID: ${member.id} </p>
+                </div>
+                <div> 
+                    <p class= "memberEmail"> Email: ${member.email}</p>
+                </div>
+                <div>
+                    <p class= "memberDetail"> Info: ${role.third}</p>
+                </div>
+            </div>
+        </div>`
+
+return card + str_end;
 }
