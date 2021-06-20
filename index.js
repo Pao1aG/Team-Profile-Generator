@@ -1,7 +1,7 @@
 //Packages and modules for application
 const inquirer = require("inquirer"); 
 const fs = require("fs");
-const appendJs = require("./append.js");
+const appendCard = require("./dist/append.js");
 
 //QUESTIONS FOR INQUIRER
 const questions = [
@@ -29,6 +29,7 @@ const questions = [
         message: "Email Address:",
         name: "email",
     },
+    //Needs to loop after this response
     {
         type: "list",
         message: "Would you like to add another team member?",
@@ -56,24 +57,31 @@ const questions = [
     },
 ]
 
-//FUNCTION FOR INQUIRER
+// FUNCTION FOR INQUIRER
 function writeHTML () {
     inquirer
     .prompt(questions) 
     .then(function(member) {
         console.log("Team member: ", member); //success
-        fs.writeFile("./dist/index.html"), generateHTML(member), function(err) {
-            console.log("Files have been successfully written!")
-        }
+        fs.writeFile("./dist/index.html", generateHTML(member), function(err) {
+            console.log("HTML file has been successfully created!");
 
-        generateHTML(member);
+            appendCard(member); //Function to generate HTML elements for card
+        })
+
+        // generateHTML(member);
 
         // cardManager(member); //these are here for testing
         // cardEngineer(member); //these are here for testing
         // cardIntern(member); //these are here for testing
     })
 }
-writeHTML();
+
+function init () {
+    writeHTML(inquirer);
+}
+init();
+
 
 //THESE NEED TO BE SENT TO DIFFERENT MODULE----------------------------
 
@@ -120,12 +128,6 @@ function cardIntern(data) {
 
 //FUNCTION TO GENERATE HTML
 function generateHTML(data) {
-    appendCard (data); //Function to generate HTML elements for card
-    if(data.role == "Manager") {
-        cardManager(data); //As soon as the HTML is created, these functions will fill in the correct data
-    }
-    // cardEngineer(data);
-    // cardIntern(data);
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -163,8 +165,6 @@ function generateHTML(data) {
             </div>
         </div>
     </div>
-    
-    <script src="append.js"></script>
 </body>
 </html>
     `

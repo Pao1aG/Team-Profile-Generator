@@ -52,6 +52,7 @@ function appendCard () {
     console.log("card should appear")
 }
 
+//TEST FOR HARDCODED HTML FILE
 // button = document.querySelector("button");
 
 // button.addEventListener("click", function(event) {
@@ -63,10 +64,6 @@ function appendCard () {
 
 //FUNCTION TO SAVE TO LOCAL STORAGE ---------------
 //Need to create object out of this first, 
-// let appendCardObj = {
-
-// }
-
 //Then, this object needs to be sent to array, then set item
 //Whenever the window reloads, this needs to be retrieved from local storage
 
