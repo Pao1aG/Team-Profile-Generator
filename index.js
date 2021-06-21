@@ -171,7 +171,7 @@ var card = `<div class = "teamCards">
                     <p class= "memberID"> ID: ${member.id} </p>
                 </div>
                 <div> 
-                    <p class= "memberEmail"> Email: ${member.email}</p>
+                    <p class= "memberEmail"><a onclick="window.open('mailto:${member.email}','_blank')">Email: ${member.email}</a></p>
                 </div>
                 <div>
                     <p class= "memberDetail"> ${tag}: ${role.third}</p>
@@ -203,7 +203,7 @@ var card = `<div class = "teamCards">
                     <p class= "memberID"> ID: ${member.id} </p>
                 </div>
                 <div> 
-                    <p class= "memberEmail"> Email: ${member.email}</p>
+                    <p class= "memberEmail"><a onclick="window.open('mailto:${member.email}','_blank')">Email: ${member.email}</a></p>
                 </div>
                 <div>
                     <p class= "memberDetail">${tag}: ${role.third}</p>

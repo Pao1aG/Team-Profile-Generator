@@ -51,3 +51,7 @@ h1 {
 .cardContent p {
     margin-left: 6px;
 }
+
+.memberEmail:hover {
+    cursor: pointer;
+}
