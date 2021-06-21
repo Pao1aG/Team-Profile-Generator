@@ -84,7 +84,7 @@ function writeHTML () {
 
                 if(role.continue == true && ".dist/index.html" != null) {
                     fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
-                        console.log("adding more members");
+                        // console.log("adding more members");
                     });
                     writeHTML();
 
@@ -107,7 +107,7 @@ function writeHTML () {
 
                 if(role.continue == true && ".dist/index.html" != null) {
                     fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
-                        console.log("adding more members");
+                        // console.log("adding more members");
                     });
                     writeHTML();
 
@@ -126,11 +126,11 @@ function writeHTML () {
         } else {
             // console.log("intern was chosen")
             inquirer.prompt(internQ).then(function(role) {
-                let thirdTag = "School: "
+                let thirdTag = "School "
 
                 if(role.continue == true && ".dist/index.html" != null) {
                     fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
-                        console.log("adding more members");
+                        // console.log("adding more members");
                     })
                     writeHTML();
 
@@ -206,7 +206,7 @@ var card = `<div class = "teamCards">
                     <p class= "memberEmail"> Email: ${member.email}</p>
                 </div>
                 <div>
-                    <p class= "memberDetail">${tag} ${role.third}</p>
+                    <p class= "memberDetail">${tag}: ${role.third}</p>
                 </div>
             </div>
         </div>`
