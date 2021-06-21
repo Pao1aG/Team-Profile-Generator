@@ -55,3 +55,7 @@ h1 {
 .memberEmail:hover {
     cursor: pointer;
 }
+
+.memberDetail:hover {
+    cursor: pointer;
+}

@@ -104,21 +104,22 @@ function writeHTML () {
             // console.log("engineer was chosen");
             inquirer.prompt(engineerQ).then(function(role) {
                 let thirdTag = "GitHub "
+                let githubLink = "https://github.com/"
 
                 if(role.continue == true && ".dist/index.html" != null) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag, githubLink), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
 
                 } else if (role.continue == true){
-                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag, githubLink), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
 
                     writeHTML();
                 } else {
-                    fs.appendFile("./dist/index.html", generateLastHTML(member, role, thirdTag), function(err) {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role, thirdTag, githubLink), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
                 };
@@ -156,7 +157,7 @@ function init () {
 init();
 
 
-function generateFirstHTML(member, role, tag) {
+function generateFirstHTML(member, role, tag, git) {
 var card = `<div class = "teamCards">
             <div class= "cardHeader">
                 <div class = "memberName">
@@ -174,7 +175,7 @@ var card = `<div class = "teamCards">
                     <p class= "memberEmail"><a onclick="window.open('mailto:${member.email}','_blank')">Email: ${member.email}</a></p>
                 </div>
                 <div>
-                    <p class= "memberDetail"> ${tag}: ${role.third}</p>
+                    <p class= "memberDetail"><a href='https://github.com/${role.third}' target="_blank">${tag}: ${role.third}</a></p>
                 </div>
             </div>
         </div>`
@@ -184,7 +185,7 @@ return card;
 
 
 //FUNCTION TO GENERATE HTML
-function generateLastHTML(member, role, tag) {
+function generateLastHTML(member, role, tag, git) {
     var str_end = `</div>
 </body>
 </html>
@@ -206,7 +207,7 @@ var card = `<div class = "teamCards">
                     <p class= "memberEmail"><a onclick="window.open('mailto:${member.email}','_blank')">Email: ${member.email}</a></p>
                 </div>
                 <div>
-                    <p class= "memberDetail">${tag}: ${role.third}</p>
+                    <p class= "memberDetail"><a href='https://github.com/${role.third}' target="_blank">${tag}: ${role.third}</a></p>
                 </div>
             </div>
         </div>`
