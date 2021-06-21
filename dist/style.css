@@ -52,10 +52,11 @@ h1 {
     margin-left: 6px;
 }
 
-.memberEmail:hover {
+.memberEmail:hover, .memberDetail:hover {
     cursor: pointer;
 }
 
-.memberDetail:hover {
-    cursor: pointer;
+.memberDetail {
+   text-decoration: none;
+   color: black;
 }
