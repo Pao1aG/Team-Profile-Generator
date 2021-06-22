@@ -1,86 +1,20 @@
 //Packages and modules for application
 const inquirer = require("inquirer"); 
 const fs = require("fs");
-const app = require("./src/app");
-const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const firstHTML = require("./src/firstHTML.js");
+const mainQ = require("./src/mainQ.js");
+const managerQ = require("./src/managerQ");
+const engineerQ = require("./src/engineerQ");
+const internQ = require("./src/internQ");
 
-//QUESTIONS FOR INQUIRER
-const main = [
-    {
-        type: "input",
-        message: "Team Member Name:",
-        name: "name",
-
-    },
-    {
-        type: "list",
-        message: "Team Member Role:",
-        name: "role",
-        choices: ["Manager", "Engineer", "Intern"]
-
-    },
-    {
-        type: "input",
-        message: "ID Number:",
-        name: "id",
-
-    },
-    {
-        type: "input",
-        message: "Email Address:",
-        name: "email",
-    },
-]
-
-const managerQ = [
-    //For Manager only
-    {
-        type: "input",
-        message: "Office Number:",
-        name: "third",
-    },
-     {
-        type: "confirm",
-        message: "Would you like to add another team member?",
-        name: "continue",
-    },
-]
-
-const engineerQ = [
-    //For Engineer only
-    {
-        type: "input",
-        message: "GitHub Username:",
-        name: "third",
-    },
-     {
-        type: "confirm",
-        message: "Would you like to add another team member?",
-        name: "continue",
-    },
-]
-
-const internQ = [
-    //For Intern only
-    {
-        type: "input",
-        message: "School:",
-        name: "third",
-    },
-     {
-        type: "confirm",
-        message: "Would you like to add another team member?",
-        name: "continue",
-    },
-]
 
 // FUNCTION FOR INQUIRER
 function writeHTML () {
     inquirer
-    .prompt(main) 
+    .prompt(mainQ) 
     .then(function(member) {
         if(member.role == "Manager") {
             //Prompting questions for manager only
@@ -141,32 +75,6 @@ function writeHTML () {
     });
 };
 
-function init () {
-
-    fs.writeFile("./dist/index.html", generateFirstHTML(), function(err) {
-        // console.log("success in creating first html");
-    });
-
-    writeHTML(inquirer);
-}
-init();
-
-//FUNCTION TO WRITE FIRST HTML
-function generateFirstHTML() {
-return`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/dist/style.css">
-    <title>My Team</title>
-</head>
-<body>
-    <h1> My Team</h1>
-
-    <div class = "appendCards">`
-}
 
 //FUNCTION TO APPEND FIRST  HTML
 function appendHTML(employee, tag, git) {
@@ -226,3 +134,10 @@ var card = `<div class = "teamCards">
 
 return card + str_end;
 };
+
+function init () {
+
+    fs.writeFile("./dist/index.html", firstHTML, function(err) {});
+    writeHTML(inquirer);
+}
+init();
