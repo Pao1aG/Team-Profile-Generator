@@ -138,7 +138,6 @@ function writeHTML () {
 };
 
 function init () {
-
     writeHTML(inquirer);
 }
 init();

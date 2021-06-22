@@ -4,15 +4,29 @@ describe("Employee", () => {
     describe("Initialization", () => {
         it("should create an object with a name, id, email, and role", () => {
             //Arrange
-            const employee = new Employee ("Paola", 1, "paolaagonzalezm@gmail.com")
-            
-            // //Act?
-            // const role = employee.getRole()
-
+            const employee = new Employee ("Paola", 1, "paolaagonzalezm@gmail.com");
             //Assert
             expect("name" in employee).toBe(true);
             expect("email" in employee).toBe(true);
             expect("id" in employee).toBe(true);
         });
+        it("should give the name of employee via the constructor argument", () => {
+            //Arrange
+            const employee = new Employee ("Paola", 1, "paolaagonzalezm@gmail.com");
+            //Assert
+            expect(employee.name).toBe("Paola");
+        })
+        it("should give the id of employee via the constructor argument", () => {
+            //Arrange
+            const employee = new Employee ("Paola", 1, "paolaagonzalezm@gmail.com");
+            //Assert
+            expect(employee.id).toBe(1);
+        })
+        it("should give the email of employee via the constructor argument", () => {
+            //Arrange
+            const employee = new Employee ("Paola", 1, "paolaagonzalezm@gmail.com");
+            //Assert
+            expect(employee.email).toBe("paolaagonzalezm@gmail.com");
+        })
     });
 });
