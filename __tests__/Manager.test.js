@@ -36,5 +36,12 @@ describe("Manager", () => {
             //Assert
             expect(employee.officeNumber).toBe(202);
         });
+        it("should give the role of manager via the getRole() method", () => {
+            //Arrange
+            const employee = new Manager ("Rodney", "rodneysara@yahoo.com", 1, 202);
+            const role = employee.getRole();
+            //Assert
+            expect(role).toBe("Manager");
+        });
     });
 });

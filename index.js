@@ -1,6 +1,7 @@
 //Packages and modules for application
 const inquirer = require("inquirer"); 
 const fs = require("fs");
+const app = require("./src/app");
 const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
@@ -90,7 +91,7 @@ function writeHTML () {
 
                 if(role.continue == true) {
                     //Passing mgr object through generateFirstHTML function
-                    fs.appendFile("./dist/index.html", appendFirstHTML(mgr, thirdTag), function(err) {
+                    fs.appendFile("./dist/index.html", appendHTML(mgr, thirdTag), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
@@ -108,7 +109,7 @@ function writeHTML () {
                 let gitLink = "https://github.com/"
 
                 if(role.continue == true) {
-                    fs.appendFile("./dist/index.html", appendFirstHTML(eng, thirdTag, gitLink), function(err) {
+                    fs.appendFile("./dist/index.html", appendHTML(eng, thirdTag, gitLink), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
@@ -125,7 +126,7 @@ function writeHTML () {
                 let thirdTag = "School";
 
                 if(role.continue == true) {
-                    fs.appendFile("./dist/index.html", appendFirstHTML(int, thirdTag), function(err) {
+                    fs.appendFile("./dist/index.html", appendHTML(int, thirdTag), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
@@ -143,7 +144,7 @@ function writeHTML () {
 function init () {
 
     fs.writeFile("./dist/index.html", generateFirstHTML(), function(err) {
-        console.log("success in creating first html");
+        // console.log("success in creating first html");
     });
 
     writeHTML(inquirer);
@@ -168,7 +169,7 @@ return`<!DOCTYPE html>
 }
 
 //FUNCTION TO APPEND FIRST  HTML
-function appendFirstHTML(employee, tag, git) {
+function appendHTML(employee, tag, git) {
 var card = `<div class = "teamCards">
             <div class= "cardHeader">
                 <div class = "memberName">

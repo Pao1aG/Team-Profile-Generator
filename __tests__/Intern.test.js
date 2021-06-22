@@ -36,5 +36,12 @@ describe("Manager", () => {
             //Assert
             expect(employee.school).toBe("UArizona");
         });
+        it("should give the role of intern via the getRole() method", () => {
+            //Arrange
+            const employee = new Intern ("John", "email@email.com", 3, "UArizona");
+            const role = employee.getRole();
+            //Assert
+            expect(role).toBe("Intern");
+        });
     });
 });

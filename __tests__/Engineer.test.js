@@ -36,5 +36,12 @@ describe("Manager", () => {
             //Assert
             expect(employee.github).toBe("nivenf");
         });
+        it("should give the role of engineer via the getRole() method", () => {
+            //Arrange
+            const employee = new Engineer ("Niven", "niven5111@gmail.com", 2, "nivenf");
+            const role = employee.getRole();
+            //Assert
+            expect(role).toBe("Engineer");
+        });
     });
 });
