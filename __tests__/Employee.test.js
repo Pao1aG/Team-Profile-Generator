@@ -2,7 +2,7 @@ const Employee = require("../lib/Employee.js"); //sitting inside a child directo
 
 describe("Employee", () => {
     describe("Initialization", () => {
-        it("should create an object with a name, id, email, and role", () => {
+        it("should create an object with a name, id, email", () => {
             //Arrange
             const employee = new Employee ("Paola", 1, "paolaagonzalezm@gmail.com");
             //Assert
