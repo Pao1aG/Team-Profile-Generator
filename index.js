@@ -82,12 +82,15 @@ function writeHTML () {
     .prompt(main) 
     .then(function(member) {
         if(member.role == "Manager") {
+            //Prompting questions for manager only
             inquirer.prompt(managerQ).then(function(role){
-                const mgr = new Manager(member.name, member.email, member.id, role.third);
+                //creating new Manager object with prototype properties
+                const mgr = new Manager(member.name, member.email, member.id, role.third); //role.third is from managerQ and for getSpecial() class methods
                 let thirdTag = "Office";
 
                 if(role.continue == true) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(mgr, thirdTag), function(err) {
+                    //Passing mgr object through generateFirstHTML function
+                    fs.appendFile("./dist/index.html", appendFirstHTML(mgr, thirdTag), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
@@ -105,7 +108,7 @@ function writeHTML () {
                 let gitLink = "https://github.com/"
 
                 if(role.continue == true) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(eng, thirdTag, gitLink), function(err) {
+                    fs.appendFile("./dist/index.html", appendFirstHTML(eng, thirdTag, gitLink), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
@@ -122,7 +125,7 @@ function writeHTML () {
                 let thirdTag = "School";
 
                 if(role.continue == true) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(int, thirdTag), function(err) {
+                    fs.appendFile("./dist/index.html", appendFirstHTML(int, thirdTag), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
@@ -138,12 +141,34 @@ function writeHTML () {
 };
 
 function init () {
+
+    fs.writeFile("./dist/index.html", generateFirstHTML(), function(err) {
+        console.log("success in creating first html");
+    });
+
     writeHTML(inquirer);
 }
 init();
 
+//FUNCTION TO WRITE FIRST HTML
+function generateFirstHTML() {
+return`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dist/style.css">
+    <title>My Team</title>
+</head>
+<body>
+    <h1> My Team</h1>
+
+    <div class = "appendCards">`
+}
+
 //FUNCTION TO APPEND FIRST  HTML
-function generateFirstHTML(employee, tag, git) {
+function appendFirstHTML(employee, tag, git) {
 var card = `<div class = "teamCards">
             <div class= "cardHeader">
                 <div class = "memberName">
