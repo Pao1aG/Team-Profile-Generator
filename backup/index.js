@@ -1,10 +1,6 @@
 //Packages and modules for application
 const inquirer = require("inquirer"); 
 const fs = require("fs");
-const Employee = require("./lib/Employee");
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
 
 //QUESTIONS FOR INQUIRER
 const main = [
@@ -82,53 +78,71 @@ function writeHTML () {
     .prompt(main) 
     .then(function(member) {
         if(member.role == "Manager") {
+            // console.log("manager was chosen");
             inquirer.prompt(managerQ).then(function(role){
-                const mgr = new Manager(member.name, member.email, member.id, role.third);
-                let thirdTag = "Office";
+                let thirdTag = "Office "
 
-                if(role.continue == true) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(mgr, thirdTag), function(err) {
+                if(role.continue == true && ".dist/index.html" != null) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
 
+                } else if (role.continue == true){
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    });
+
+                    writeHTML();
                 } else {
-                    fs.appendFile("./dist/index.html", generateLastHTML(mgr, thirdTag), function(err) {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role, thirdTag), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
                 };
             });
         } else if (member.role == "Engineer") {
-            inquirer.prompt(engineerQ).then(function(role){
-                const eng = new Engineer(member.name, member.email, member.id, role.third);
-                let thirdTag = "GitHub";
-                let gitLink = "https://github.com/"
+            // console.log("engineer was chosen");
+            inquirer.prompt(engineerQ).then(function(role) {
+                let thirdTag = "GitHub "
+                let githubLink = "https://github.com/"
 
-                if(role.continue == true) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(eng, thirdTag, gitLink), function(err) {
+                if(role.continue == true && ".dist/index.html" != null) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag, githubLink), function(err) {
                         // console.log("adding more members");
                     });
                     writeHTML();
 
+                } else if (role.continue == true){
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag, githubLink), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    });
+
+                    writeHTML();
                 } else {
-                    fs.appendFile("./dist/index.html", generateLastHTML(eng, thirdTag, gitLink), function(err) {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role, thirdTag, githubLink), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
                 };
             });
         } else {
-            inquirer.prompt(internQ).then(function(role){
-                const int = new Intern(member.name, member.email, member.id, role.third);
-                let thirdTag = "School";
+            // console.log("intern was chosen")
+            inquirer.prompt(internQ).then(function(role) {
+                let thirdTag = "School "
 
-                if(role.continue == true) {
-                    fs.appendFile("./dist/index.html", generateFirstHTML(int, thirdTag), function(err) {
+                if(role.continue == true && ".dist/index.html" != null) {
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
                         // console.log("adding more members");
-                    });
+                    })
                     writeHTML();
 
+                } else if (role.continue == true){
+                    fs.appendFile("./dist/index.html", generateFirstHTML(member, role, thirdTag), function(err) {
+                        console.log("HTML file has been successfully created!");
+                    })
+
+                    writeHTML();
                 } else {
-                    fs.appendFile("./dist/index.html", generateLastHTML(int, thirdTag), function(err) {
+                    fs.appendFile("./dist/index.html", generateLastHTML(member, role, thirdTag), function(err) {
                         console.log("HTML file has been successfully created!");
                     });
                 };
@@ -138,31 +152,30 @@ function writeHTML () {
 };
 
 function init () {
-
     writeHTML(inquirer);
 }
 init();
 
-//FUNCTION TO APPEND FIRST  HTML
-function generateFirstHTML(employee, tag, git) {
+
+function generateFirstHTML(member, role, tag, git) {
 var card = `<div class = "teamCards">
             <div class= "cardHeader">
                 <div class = "memberName">
-                    ${employee.getName()}
+                    ${member.name}
                 </div>
                 <div class = "memberRole">
-                    ${employee.getRole()}
+                    ${member.role}
                 </div>
             </div>
             <div class = "cardContent">
                 <div>
-                    <p class= "memberID"> ID: ${employee.getId()} </p>
+                    <p class= "memberID"> ID: ${member.id} </p>
                 </div>
                 <div> 
-                    <p class= "memberEmail"><a onclick="window.open('mailto:${employee.getEmail()}','_blank')">Email: ${employee.getEmail()}</a></p>
+                    <p class= "memberEmail"><a onclick="window.open('mailto:${member.email}','_blank')">Email: ${member.email}</a></p>
                 </div>
                 <div>
-                    <p class= "memberDetail"><a href='${git}${employee.getSpecial()}' target="_blank">${tag}: ${employee.getSpecial()}</a></p>
+                    <p class= "memberDetail"><a href='https://github.com/${role.third}' target="_blank">${tag}: ${role.third}</a></p>
                 </div>
             </div>
         </div>`
@@ -171,8 +184,8 @@ return card;
 };
 
 
-//FUNCTION TO APPEND LAST HTML
-function generateLastHTML(employee, tag, git) {
+//FUNCTION TO GENERATE HTML
+function generateLastHTML(member, role, tag, git) {
     var str_end = `</div>
 </body>
 </html>
@@ -180,21 +193,21 @@ function generateLastHTML(employee, tag, git) {
 var card = `<div class = "teamCards">
             <div class= "cardHeader">
                 <div class = "memberName">
-                ${employee.getName()}
+                    ${member.name}
                 </div>
                 <div class = "memberRole">
-                ${employee.getRole()}
+                    ${member.role}
                 </div>
             </div>
             <div class = "cardContent">
                 <div>
-                    <p class= "memberID"> ID: ${employee.getId()} </p>
+                    <p class= "memberID"> ID: ${member.id} </p>
                 </div>
                 <div> 
-                    <p class= "memberEmail"><a onclick="window.open('mailto:${employee.getEmail()}','_blank')">Email: ${employee.getEmail()}</a></p>
+                    <p class= "memberEmail"><a onclick="window.open('mailto:${member.email}','_blank')">Email: ${member.email}</a></p>
                 </div>
                 <div>
-                    <p class= "memberDetail"><a href='${git}${employee.getSpecial()}' target="_blank">${tag}: ${employee.getSpecial()}</a></p>
+                    <p class= "memberDetail"><a href='https://github.com/${role.third}' target="_blank">${tag}: ${role.third}</a></p>
                 </div>
             </div>
         </div>`
