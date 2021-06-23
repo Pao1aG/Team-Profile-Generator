@@ -1,6 +1,6 @@
 const Engineer = require("../lib/Engineer.js");
 
-describe("Manager", () => {
+describe("Engineer", () => {
     describe("Initialization", () => {
         it("should create an object with a name, id, email, office number", () => {
             //Arrange

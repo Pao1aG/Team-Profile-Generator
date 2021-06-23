@@ -1,6 +1,6 @@
 const Intern = require("../lib/Intern.js");
 
-describe("Manager", () => {
+describe("Intern", () => {
     describe("Initialization", () => {
         it("should create an object with a name, id, email, office number", () => {
             //Arrange

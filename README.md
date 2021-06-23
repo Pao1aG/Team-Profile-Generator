@@ -49,7 +49,7 @@ node index.js
 ```
 The program will initialize and a series of questions will be presented to you. You can type in the employee's name, choose their role, type in their email, and an additional piece of information such as their office, GitHub username, or school depending on the employee type. Once you have completed the prompts, an HTML file will be generated. You can access this file in the 'dist' folder. The included CSS file will add the necessary styling to the webpage and can be modified to fit your preference. 
 
-> For a demo of this application, [Watch Here]()
+> For a demo of this application, [Watch Here](https://drive.google.com/file/d/1G3fVJbCvURpNjKzbpK_yWMGOs5B9oAh8/view)
 
 ## Testing
 
@@ -59,7 +59,7 @@ If you want to perform unit tests for the class modules, first install the jest 
 npm i jest
 ```
 
-To test each individual module, right-click on the __tests__ folder and choose 'Open with Integrated Terminal'.  To test the module use this command:
+To test each individual module, right-click on the '__tests__' folder and choose 'Open in Integrated Terminal'.  To test the module use this command:
 
 ```
 npm run test <test file>
